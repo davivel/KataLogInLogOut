@@ -20,7 +20,7 @@ public class ApiClientUnitTest {
             "123456"
         );
 
-        assertEquals(true, success);
+        assertTrue(success);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ApiClientUnitTest {
             "saturdaynight"
         );
 
-        assertEquals(false, success);
+        assertFalse(success);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ApiClientUnitTest {
             "654321"
         );
 
-        assertEquals(false, success);
+        assertFalse(success);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ApiClientUnitTest {
             "123456"
         );
 
-        assertEquals(false, success);
+        assertFalse(success);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ApiClientUnitTest {
 
         boolean success = apiClient.logout();
 
-        assertEquals(true, success);
+        assertTrue(success);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ApiClientUnitTest {
 
         boolean success = apiClient.logout();
 
-        assertEquals(false, success);
+        assertFalse(success);
     }
 
 }
