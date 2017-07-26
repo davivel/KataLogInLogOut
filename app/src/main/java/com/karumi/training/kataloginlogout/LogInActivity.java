@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements LogInPresenter.View {
 
     private Button logInButton;
     private EditText usernameField;
     private EditText passwordField;
+
+    private LogInPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,11 @@ public class LogInActivity extends AppCompatActivity {
         logInButton = (Button)findViewById(R.id.logInButton);
         usernameField = (EditText)findViewById(R.id.username);
         passwordField = (EditText)findViewById(R.id.password);
+
+        presenter = new LogInPresenter(
+            new ApiClient(new Clock()),
+            this
+        );
 
         usernameField.addTextChangedListener(
             new TextWatcher() {
@@ -66,15 +73,10 @@ public class LogInActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (new ApiClient(new Clock()).login(
-                        usernameField.getText().toString(),
-                        passwordField.getText().toString()
-                    )) {
-                    startActivity(new Intent(LogInActivity.this, LogOutActivity.class));
-
-                } else {
-                    Toast.makeText(LogInActivity.this, "Ups!", Toast.LENGTH_SHORT).show();
-                }
+                presenter.login(
+                    usernameField.getText().toString(),
+                    passwordField.getText().toString()
+                );
             }
         });
 
@@ -84,5 +86,15 @@ public class LogInActivity extends AppCompatActivity {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
         logInButton.setEnabled(!username.isEmpty() && !password.isEmpty());
+    }
+
+    @Override
+    public void showLogOutScreen() {
+        startActivity(new Intent(LogInActivity.this, LogOutActivity.class));
+    }
+
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(LogInActivity.this, "Ups!", Toast.LENGTH_SHORT).show();
     }
 }
