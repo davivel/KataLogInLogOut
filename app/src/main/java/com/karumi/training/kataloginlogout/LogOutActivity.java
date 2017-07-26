@@ -20,7 +20,7 @@ public class LogOutActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (new ApiClient().logout()) {
+                if (new ApiClient(new Clock()).logout()) {
                     finish();
                 }
             }

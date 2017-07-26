@@ -1,12 +1,16 @@
 package com.karumi.training.kataloginlogout;
 
-import static java.lang.System.currentTimeMillis;
-
 /**
  * Created by David A. Velasco on 26/7/17.
  */
 
 public class ApiClient {
+
+    private final Clock clock;
+
+    public ApiClient(Clock clock) {
+        this.clock = clock;
+    }
 
     public boolean login(String username, String password) {
         return (
@@ -16,6 +20,6 @@ public class ApiClient {
     }
 
     public boolean logout() {
-        return ((currentTimeMillis() / 1000)%2 == 0);
+        return ((clock.getCurrentTime() / 1000)%2 == 0);
     }
 }

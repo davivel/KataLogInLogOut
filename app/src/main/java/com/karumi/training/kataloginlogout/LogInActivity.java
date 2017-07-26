@@ -66,7 +66,7 @@ public class LogInActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (new ApiClient().login(
+                if (new ApiClient(new Clock()).login(
                         usernameField.getText().toString(),
                         passwordField.getText().toString()
                     )) {
